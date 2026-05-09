@@ -40,7 +40,7 @@ in a JSON file
 ------
 
 The structure of the our program
-
+```text
 src/
  ├── components/
  │     └── CompanyCard.jsx
@@ -50,7 +50,7 @@ src/
  |     └── CompanyDetails.jsx
  │
  ├── App.jsx
-
+```
 ------
 
 Now first make frontend So in the Folder "Job_List_Management" install the Modern frontend build tool - Vite. While installing, make folder frontend with that as well.
