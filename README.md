@@ -84,3 +84,19 @@ Now your browser should show
 
 Smart Interview Prep Tracker
 Dashboard
+
+------
+
+Now we'll add one file named CompanyCard.jsx in folder components
+Company Card does not own the data it receives or displays the data that is coming from the parent compoent that is Dashboard.jsx
+
+Now we'll render the CompanyCard.jsx to the Dashboard. The use of dynamic UI like CompnayCard is that we can use it as many timea as we want with different data. It becomes like a template for the Companies Data. 
+
+The visual Hirarchy is now:
+```text
+App
+  ↓
+Dashboard
+  ├── CompanyCard (HELLA)
+  └── CompanyCard (Amazon)
+```
