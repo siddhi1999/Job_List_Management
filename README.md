@@ -39,7 +39,7 @@ in a JSON file
 
 ------
 
-The structure of the our program
+The frontend structure of the our program
 ```text
 src/
  ├── components/
