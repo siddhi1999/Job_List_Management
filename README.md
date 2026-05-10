@@ -2,7 +2,7 @@ Step 1 - Problem Statement:
 When preparing for jobs all the details are scattered. Notes are separate. Questions are forgotten. Application status becomes confusing. 
 So this Application centralizes everything.
 ------
-## Tech Stack
+Tech Stack-
 Frontend:
 - React
 - Vite
@@ -100,3 +100,7 @@ Dashboard
   ├── CompanyCard (HELLA)
   └── CompanyCard (Amazon)
 ```
+
+------
+
+Now we go to state management phase where we will change the handcoded cards to data stored in state that uses Hooks. we will add companyList state where it will have all the list of companies in JSCON format. We'll then remove the hardcoded <CompanyCard .../> and add the logic inside the jsx code.
