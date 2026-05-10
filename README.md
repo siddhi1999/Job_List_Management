@@ -103,4 +103,10 @@ Dashboard
 
 ------
 
-Now we go to state management phase where we will change the handcoded cards to data stored in state that uses Hooks. we will add companyList state where it will have all the list of companies in JSCON format. We'll then remove the hardcoded <CompanyCard .../> and add the logic inside the jsx code.
+Now we go to state management phase where we will change the handcoded cards to data stored in state that uses Hooks. we will add companyList state where it will have all the list of companies in JSCON format. We'll then remove the hardcoded <CompanyCard .../> and add the logic inside the jsx code. We will add the mapping 
+
+------
+
+Now we'll ent to Form  handling with Event System phase. We'll control the UI with state and will take input from the user. So when the state update the UI updates.
+
+When the user types inside the input field, the onChange event triggers and updates the corresponding React state using setState functions. After clicking the Add Company button, the handleSubmit function executes and creates a new company object. This new object is added into the companyList state using setCompanyList. Since state changes, React re-renders the component. During rendering, map() loops through the updated companyList array and dynamically creates CompanyCard components. The company data is passed as props to CompanyCard, which displays the information in the UI.

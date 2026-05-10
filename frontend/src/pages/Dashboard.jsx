@@ -3,6 +3,10 @@ import CompanyCard from '../components/CompanyCard.jsx';
 
 function Dashboard() {
 
+    const [companyName, setCompanyName] = useState('');
+    const [positionName, setPositionName] = useState('');
+    const [status, setStatus] = useState('');
+
     const [companyList, setCompanyList] = useState([
         {
             companyName: 'HELLA',
@@ -16,9 +20,54 @@ function Dashboard() {
         }
     ]);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const newCompany = {
+            companyName, 
+            positionName,
+            status
+        };
+
+        setCompanyList([...companyList, newCompany]);
+    }
+
     return (
         <div>
             <h1>Smart Interview Prep Tracker</h1>
+            <p><b>Insert New Company Here</b></p>
+
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor='companyName'>Enter Company Name</label>
+                    <input 
+                        id = "companyName"
+                        placeholder = "Company Name"
+                        type = "text"
+                        value={companyName}
+                        onChange={(event) => setCompanyName(event.target.value)}
+                    />
+
+                    <label htmlFor='positionName'>Enter Position Name</label>
+                    <input 
+                        id = "positionName"
+                        placeholder = "Position Name"
+                        type = "text"
+                        value={positionName}
+                        onChange={(event) => setPositionName(event.target.value)}
+                    />
+
+                    <label htmlFor='status'>What's the status</label>
+                    <input 
+                        id = "status"
+                        placeholder = "Status"
+                        type = "text"
+                        value={status}
+                        onChange={(event) => setStatus(event.target.value)}
+                    />
+                </div>
+                <button type='submit'>Add Company</button>
+            </form>
+
             {
                 companyList.map( (company, index) => (
                     <CompanyCard 
