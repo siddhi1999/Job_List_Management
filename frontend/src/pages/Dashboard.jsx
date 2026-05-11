@@ -31,6 +31,11 @@ function Dashboard() {
         setCompanyList([...companyList, newCompany]);
     }
 
+    const deleteCompany = (indexToDelete) => {
+        const updatedCompanyList = companyList.filter((_,index) => index !== indexToDelete);  //filter contain only the matching elements
+        setCompanyList(updatedCompanyList);
+    }
+
     return (
         <div>
             <h1>Smart Interview Prep Tracker</h1>
@@ -75,6 +80,8 @@ function Dashboard() {
                         companyName = {company.companyName}
                         positionName = {company.positionName}
                         status = {company.status}
+
+                        onDelete = {() => deleteCompany(index)}  //attention we are ending function as a prop and this is callback
                     />
                 ))
             }

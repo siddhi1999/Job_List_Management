@@ -107,6 +107,36 @@ Now we go to state management phase where we will change the handcoded cards to 
 
 ------
 
-Now we'll ent to Form  handling with Event System phase. We'll control the UI with state and will take input from the user. So when the state update the UI updates.
+Now we'll come to Form handling with Event System phase. We'll control the UI with state and will take input from the user. So when the state update the UI updates.
 
 When the user types inside the input field, the onChange event triggers and updates the corresponding React state using setState functions. After clicking the Add Company button, the handleSubmit function executes and creates a new company object. This new object is added into the companyList state using setCompanyList. Since state changes, React re-renders the component. During rendering, map() loops through the updated companyList array and dynamically creates CompanyCard components. The company data is passed as props to CompanyCard, which displays the information in the UI.
+
+------
+
+Implement delete functionality using React callbacks
+
+Each companyCard will now have Delete Button. When clicked: the CompanyCard notifies Dashboard then Dashboard removes the company. UI re-renders automatically.
+```text
+Dashboard owns companyList
+       ↓ props
+CompanyCard receives data
+       ↓ callback trigger
+Dashboard updates state
+       ↓
+UI re-renders
+```
+
+A callback function in React is a function passed from a parent component to a child component through props, allowing the child to trigger logic in the parent component. 
+We pass () => deleteCompany(index) so the function executes only when the delete button is clicked. Otherwise, deleteCompany would run immediately during component rendering.
+When the user clicks the Delete button inside CompanyCard, the onDelete callback function is triggered. This callback executes the deleteCompany function in the Dashboard component with the correct company index. The Dashboard component updates the companyList state using filter() to create a new array without the selected company. Since the state changes, React re-renders the UI and the deleted CompanyCard disappears from the screen.
+```text
+Parent owns state
+      ↓
+Child receives props
+      ↓
+Child triggers callback
+      ↓
+Parent updates state
+      ↓
+React re-renders UI
+```
