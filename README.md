@@ -208,8 +208,16 @@ restore companyList
 ↓
 UI shows previous data
 ```
+------
+Initialize Express backend server and REST API setup
 
+Time for working in backend. We'll add one folder named backend and there create package.json file. -y here means yes for everything. So this command creates Node.js project instantly with default settings.
+>npm init -y
 
+Now we'll install 2 packages. express used for backend servers, APIs, routes, HTTP requests/responses. cors (cross-origin resource sharing) for frontend and backend to communicate, expecially when running on different ports. Without cors browser block requests.
+>npm install express cors
+
+The backend server was created using Express.js. CORS middleware was added to allow communication between the React frontend and backend server. The server listens on port 5000 and exposes a basic route to verify that the backend is running correctly.
 
 
 
