@@ -160,3 +160,17 @@ React re-renders UI
        ↓
 Status changes visually
 ´´´
+
+------
+Implement conditional rendering based on company status
+
+Frontend is NOT static HTML pages. Frontend is UI reacting to changing state. So we will now work on Conditional Rendering. The CompanyCard component dynamically displays different messages depending on the company status using React conditional rendering.
+```text
+State/Props change
+       ↓
+React re-renders component
+       ↓
+Conditions evaluated again
+       ↓
+Matching UI displayed
+´´´
