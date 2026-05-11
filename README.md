@@ -174,3 +174,25 @@ Conditions evaluated again
        ↓
 Matching UI displayed
 ´´´
+------
+Implement React useEffect for state change tracking
+
+React components mainly do render UI BUT applications also need API calls, fetching data, timers, localStorage, subscriptions, logging, syncing external systems. These are called side effects. Side effects are operations that interact with the outside world of React rendering, such as API calls, fetching data, timers, localStorage operations, or syncing with external systems. And that's why we will implement useState(). A side effect is somthing outside the normal UI rendering. So because React rendering should stay predictable so react separates UI rendering vs Side Effects.Rendering is the process where React updates the UI based on state or props changes. Side effects are operations that happen after rendering and are used for external tasks like API calls, logging, or interacting with the browser or server.
+
+syntax of useEffect-
+´´´text
+useEffect(() => {
+	//Side effect logic
+}, [dependencies]);
+´´
+useEffect is commonly used for fetching backend data, calling REST APIs, authentication checks, loading initial data. [dependencies] is a dependency array. It tells React to run the useEffect function only when the that state changes. 
+
+
+
+
+
+
+
+
+
+

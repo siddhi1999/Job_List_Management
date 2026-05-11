@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CompanyCard from '../components/CompanyCard.jsx';
 
 function Dashboard() {
@@ -48,6 +48,10 @@ function Dashboard() {
         });
         setCompanyList(updatedCompanyList);
     };
+
+    useEffect(() => {
+        console.log('Company list updated');
+    }, [companyList]);
 
     return (
         <div>
