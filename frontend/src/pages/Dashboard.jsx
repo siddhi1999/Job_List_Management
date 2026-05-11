@@ -29,12 +29,25 @@ function Dashboard() {
         };
 
         setCompanyList([...companyList, newCompany]);
-    }
+    };
 
     const deleteCompany = (indexToDelete) => {
         const updatedCompanyList = companyList.filter((_,index) => index !== indexToDelete);  //filter contain only the matching elements
         setCompanyList(updatedCompanyList);
-    }
+    };
+
+    const updateStatus = (indexToUpdate) => {
+        const updatedCompanyList = companyList.map((company,index) => {
+            if(index === indexToUpdate) {
+                return({
+                    ...company,
+                    status: 'Completed'
+            });
+            }
+            return company;
+        });
+        setCompanyList(updatedCompanyList);
+    };
 
     return (
         <div>
@@ -82,6 +95,7 @@ function Dashboard() {
                         status = {company.status}
 
                         onDelete = {() => deleteCompany(index)}  //attention we are ending function as a prop and this is callback
+                        onUpdate = {() => updateStatus(index)}
                     />
                 ))
             }

@@ -5,6 +5,7 @@ function CompanyCard(props) {
             <p>{props.positionName}</p>
             <p>{props.status}</p>
             <button onClick={props.onDelete}>Delete</button>
+            <button onClick={props.onUpdate}>Mark as complete</button>
         </div>
     );
 }

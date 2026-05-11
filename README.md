@@ -140,3 +140,23 @@ Parent updates state
       ↓
 React re-renders UI
 ```
+------
+
+Implement company status updates using immutable React state
+
+Now we'll edit the existing data that is UPDATE. With this our CRUD operation will be done in the frontend. In the CompanyCard we'll add the button 'Mark as completed' that will change the status to Completed. Using the callback function.
+
+When the user clicks the Mark Completed button, the onUpdate callback function is triggered inside CompanyCard. This callback executes the updateStatus function in the Dashboard component. The Dashboard updates the selected company’s status inside the companyList state using map(). After the state updates, React re-renders the UI and displays the updated company status.
+```text
+User clicks update button
+       ↓
+Child triggers callback
+       ↓
+Dashboard updates state
+       ↓
+map() creates updated array
+       ↓
+React re-renders UI
+       ↓
+Status changes visually
+´´´
