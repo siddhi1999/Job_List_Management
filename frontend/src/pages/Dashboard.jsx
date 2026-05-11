@@ -7,18 +7,10 @@ function Dashboard() {
     const [positionName, setPositionName] = useState('');
     const [status, setStatus] = useState('');
 
-    const [companyList, setCompanyList] = useState([
-        {
-            companyName: 'HELLA',
-            positionName: 'Intern',
-            status: 'Interview scheduled',
-        },
-        {
-            companyName: 'Amazon',
-            positionName: 'Werkstudent',
-            status: 'Applied',
-        }
-    ]);
+    const [companyList, setCompanyList] = useState(() => { //This is lazy initialization
+        const savedData = localStorage.getItem("companies");
+        return savedData ? JSON.parse(savedData) : [];
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,7 +42,7 @@ function Dashboard() {
     };
 
     useEffect(() => {
-        console.log('Company list updated');
+        localStorage.setItem("companies", JSON.stringify(companyList));
     }, [companyList]);
 
     return (
