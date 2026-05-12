@@ -259,6 +259,35 @@ Change to:
 Before you use to type- node server.js
 Now run:
 >npm start
+------
+Connect React frontend with backend REST API
+
+React frontend will commmunicate with backend API. Currently frontend use hardcoded state data with localStorage. We will replace it with real backend API data.
+```text
+Dashboard loads
+      ↓
+useEffect runs
+      ↓
+fetch sends GET request
+      ↓
+backend receives request
+      ↓
+backend returns JSON
+      ↓
+response.json parses data
+      ↓
+setCompanyList updates state
+      ↓
+React re-renders UI
+```
+We'll remove the const companyList... state content from Dashboard bacause now backend owns the data not frontend.
+When the Dashboard component loads, the useEffect runs once because of the empty dependency array. Inside useEffect, fetch() sends an asynchronous GET request to the backend API endpoint. The Express backend receives the request through app.get('/companies') and returns the companies array using res.json(). After the asynchronous request completes, the first .then() parses the JSON response into a JavaScript array/object using response.json(). The second .then() receives the parsed data and updates the React state using setCompanyList(data). React then re-renders the UI using the backend data.
+
+
+
+
+
+
 
 
 

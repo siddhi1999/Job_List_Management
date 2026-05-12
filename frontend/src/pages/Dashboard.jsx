@@ -7,10 +7,7 @@ function Dashboard() {
     const [positionName, setPositionName] = useState('');
     const [status, setStatus] = useState('');
 
-    const [companyList, setCompanyList] = useState(() => { //This is lazy initialization
-        const savedData = localStorage.getItem("companies");
-        return savedData ? JSON.parse(savedData) : [];
-    });
+    const [companyList, setCompanyList] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,8 +39,10 @@ function Dashboard() {
     };
 
     useEffect(() => {
-        localStorage.setItem("companies", JSON.stringify(companyList));
-    }, [companyList]);
+        fetch('http://localhost:5000/companies')   //sends async http requst to the backend API endpoint and returns a Promise containing the response
+        .then((response) => response.json())  //.then() means when async operation finishes, run this. response.json() convert backend response into JS object/array 
+        .then((data) => {setCompanyList(data)})  //saving backend JSON string data into React usable JS data
+    }, []); // empty dependency array run only once when component loads
 
     return (
         <div>
