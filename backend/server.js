@@ -20,12 +20,18 @@ let companies = [  //using let because we'll add,delete,update company
 ];
 
 
-app.get('/', (req, res) => {    //This creates GET API route. req=Request object this contains URL, headers, body etc. res=Response object used to send ersponse back to the browser/client.
+app.get('/', (req, res) => {    //This creates GET API route. req=Request object this contains URL, headers, body etc. res=Response object used to send response back to the browser/client.
     res.send("Backend is running");   //sending response
 });
 
 app.get('/companies', (req, res) => {   //request from frontend, response sent back
     res.json(companies);  //send JSON data back to frontend
+});
+
+app.post('/companies', (req, res) => {  //post is used for adding the data on the backend variable that is coming from frontend
+    const newCompany = req.body;  //req.body contains data sent from frontend. This only worked becasue earlier we added app.use(express.json())
+    companies.push(newCompany);   //temporary stores new compnay in backend array. Letr MOngoDB will replace this
+    res.json(({message: "Company added successfully"}));
 });
 
 app.listen(5000, () => {  //starting server on port 5000

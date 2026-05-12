@@ -9,15 +9,23 @@ function Dashboard() {
 
     const [companyList, setCompanyList] = useState([]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {  //this function contains asynchronous operation that is await
         e.preventDefault();
+
         const newCompany = {
             companyName, 
             positionName,
             status
         };
 
-        setCompanyList([...companyList, newCompany]);
+        await fetch('http://localhost:5000/companies', {  //await means wait until API request completes
+            method: 'POST',
+            headers: {   //Frontend sending JSON data
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(newCompany)   //send company object to backend
+        });
+
     };
 
     const deleteCompany = (indexToDelete) => {
