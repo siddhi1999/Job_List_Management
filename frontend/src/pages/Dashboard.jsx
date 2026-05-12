@@ -26,6 +26,8 @@ function Dashboard() {
             body: JSON.stringify(newCompany)   //send company object to backend
         });
 
+        await fetchCompanies();
+
     };
 
     const deleteCompany = (indexToDelete) => {
@@ -46,10 +48,14 @@ function Dashboard() {
         setCompanyList(updatedCompanyList);
     };
 
+    const fetchCompanies = async () => {
+        const response = await fetch('http://localhost:5000/companies');   //there are two wasits because both operations are asynchronous: network request, JSON parsing
+        const data = await response.json();
+        setCompanyList(data);
+    };
+
     useEffect(() => {
-        fetch('http://localhost:5000/companies')   //sends async http requst to the backend API endpoint and returns a Promise containing the response
-        .then((response) => response.json())  //.then() means when async operation finishes, run this. response.json() convert backend response into JS object/array 
-        .then((data) => {setCompanyList(data)})  //saving backend JSON string data into React usable JS data
+        fetchCompanies();
     }, []); // empty dependency array run only once when component loads
 
     return (

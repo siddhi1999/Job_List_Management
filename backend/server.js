@@ -6,18 +6,8 @@ const app = express(); // creates backend application/server. Think of app as yo
 app.use(cors()); //enables CORS for all routes. Frontend from other ports can access backend.
 app.use(express.json()); //this line tells express that if client send JSON data, convert it into JS format.
 
-let companies = [  //using let because we'll add,delete,update company
-    {
-        companyName: "Hella",
-        positionName: "Intern",
-        status: "Interview Scheduled"
-    },
-    {
-        companyName: "Google",
-        positionName: "Werkstudent",
-        status: "Applied"
-    }
-];
+let companies = [];  //using let because we'll add,delete,update company
+
 
 
 app.get('/', (req, res) => {    //This creates GET API route. req=Request object this contains URL, headers, body etc. res=Response object used to send response back to the browser/client.

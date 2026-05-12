@@ -283,9 +283,7 @@ React re-renders UI
 We'll remove the const companyList... state content from Dashboard bacause now backend owns the data not frontend.
 When the Dashboard component loads, the useEffect runs once because of the empty dependency array. Inside useEffect, fetch() sends an asynchronous GET request to the backend API endpoint. The Express backend receives the request through app.get('/companies') and returns the companies array using res.json(). After the asynchronous request completes, the first .then() parses the JSON response into a JavaScript array/object using response.json(). The second .then() receives the parsed data and updates the React state using setCompanyList(data). React then re-renders the UI using the backend data.
 
-Example response object. Imagine backend sends:
-[ { "name": "Google" }, { "name": "Amazon" }]
-The browser first receives something like:
+Example response object. Imagine backend sends: [ { "name": "Google" }, { "name": "Amazon" }]. The browser first receives something like:
 response = {
    status: 200,
    ok: true,
@@ -317,6 +315,16 @@ currently frontend UI will not automatically update yet because we only sent POS
 For testing: After clicking Add Company: visit: http://localhost:5000/companies . You should be able to see the newly added companies (dont forget to refresh).
 
 When the user clicks the Add Company button, the async handleSubmit function runs. A newCompany object is created and sent to the backend using a POST request through fetch(). The request body contains JSON stringified company data. The backend receives the request through app.post('/companies'). express.json() middleware parses the incoming JSON and stores it inside req.body. The backend then pushes the new company into the companies array and sends a success response back to the frontend.
+------
+Implement synchronized frontend-backend CRUD flow
+
+Right now our flow is Add Company -> Backend updates -> Frontend still old, because frontend state was never refreshed. So our goal is that after the POST request is done, Frontend automatically fetches latest backed data. This creates synchronised frontend + backend.
+POST /companies → then GET /companies again. Backend is the real storage, Frontend is just display. So whenever backend changes, frontend must refresh data.
+So there's only one mantra that frontend needs to follow 'After changing data, fetch it again'.
+
+We can do this by moving our fetch logic outside the useEffect and make it as a function, so that we an call it on the handleSubmit as well. 
+
+When the user submits the form, handleSubmit runs and sends a POST request containing the new company data to the backend. The backend stores the company data and returns a response. After the POST request completes, fetchCompanies() is called using await to retrieve the latest company list from the backend. The updated data is stored in React state using setCompanyList(), causing the UI to re-render. Additionally, fetchCompanies() also runs inside useEffect when the component initially loads.
 
 
 
