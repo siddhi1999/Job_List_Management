@@ -240,6 +240,25 @@ JSON response returned
    ↓
 Browser displays data
 ```
+------
+Configure nodemon for backend auto-restart
+
+since React/Vite auto refresh but Node restart is needed. We will install nodemon which is a development tool that automatically restarts your Node.js server whenever file changes.
+>npm install nodemon --save-dev
+
+You currently have:
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+}
+
+Change to:
+"scripts": {
+    "start": "nodemon server.js"
+}
+
+Before you use to type- node server.js
+Now run:
+>npm start
 
 
 
