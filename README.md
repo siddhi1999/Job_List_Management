@@ -219,6 +219,30 @@ Now we'll install 2 packages. express used for backend servers, APIs, routes, HT
 
 The backend server was created using Express.js. CORS middleware was added to allow communication between the React frontend and backend server. The server listens on port 5000 and exposes a basic route to verify that the backend is running correctly.
 
+A REST API is a communication system where the frontend and backend exchange data using HTTP requests such as GET, POST, PUT, and DELETE.
+------
+Create GET companies REST API endpoint
+
+We will now create a real API endpoint. Endpoint is a URL on backend that performs some operation like GET /companies which means 'give me all companies'. 
+When the backend server starts using app.listen(), it begins listening on port 5000. When the browser visits /companies, a GET request is sent to the backend. Express matches this request with the app.get('/companies') route. The callback function executes, and res.json(companies) sends the companies array back as a JSON response. The browser then displays the returned JSON data. 
+```text
+Browser
+   ↓ GET request
+localhost:5000/companies
+   ↓
+Express route matches
+   ↓
+Backend function runs
+   ↓
+res.json(companies)
+   ↓
+JSON response returned
+   ↓
+Browser displays data
+```
+
+
+
 
 
 
