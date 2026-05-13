@@ -291,6 +291,7 @@ response = {
    body: "raw stream data"
 }
 The actual JSON is still hidden inside the body. So we do: response.json(). This extracts and converts the body into JavaScript data.
+
 ------
 Implement POST API for creating companies
 
@@ -315,6 +316,7 @@ currently frontend UI will not automatically update yet because we only sent POS
 For testing: After clicking Add Company: visit: http://localhost:5000/companies . You should be able to see the newly added companies (dont forget to refresh).
 
 When the user clicks the Add Company button, the async handleSubmit function runs. A newCompany object is created and sent to the backend using a POST request through fetch(). The request body contains JSON stringified company data. The backend receives the request through app.post('/companies'). express.json() middleware parses the incoming JSON and stores it inside req.body. The backend then pushes the new company into the companies array and sends a success response back to the frontend.
+
 ------
 Implement synchronized frontend-backend CRUD flow
 
@@ -325,6 +327,7 @@ So there's only one mantra that frontend needs to follow 'After changing data, f
 We can do this by moving our fetch logic outside the useEffect and make it as a function, so that we an call it on the handleSubmit as well. 
 
 When the user submits the form, handleSubmit runs and sends a POST request containing the new company data to the backend. The backend stores the company data and returns a response. After the POST request completes, fetchCompanies() is called using await to retrieve the latest company list from the backend. The updated data is stored in React state using setCompanyList(), causing the UI to re-render. Additionally, fetchCompanies() also runs inside useEffect when the component initially loads.
+
 ------
 Implement full-stack DELETE API functionality
 
@@ -349,6 +352,31 @@ Frontend refetches data
 UI updates automatically
 ```
 When the user clicks the Delete button, deleteCompany() runs in the frontend. fetch() sends a DELETE request containing the company ID in the API URL. The backend receives the request through app.delete('/companies/:id'). Express extracts the route parameter using req.params.id. The backend then removes the matching company using filter() and returns a response. After deletion, the frontend refetches the updated company list and React re-renders the UI.
+
+------
+
+Implement full-stack UPDATE API (PUT)
+
+Right now if status changes, we cannot update existing company. So we will fix with UPDATE API. Our goal is when user clicks 'Mark as complete' so backend should updates only status and then frontend refreshes UI. To do that we will use app.put() on the server.js.
+Note: filter → removes items, map → updates items 
+
+User clicks button
+       ↓
+Frontend calls updateCompanyStatus()
+       ↓
+PUT request sent with id + new data
+       ↓
+Backend receives req.params.id
+       ↓
+Backend uses map() to update item
+       ↓
+Backend sends response
+       ↓
+Frontend refetches data
+       ↓
+UI updates automatically
+
+When the user clicks the ‘Mark as Completed’ button, the update function is triggered in the frontend. A PUT request is sent to the backend with the company ID and updated data. The backend receives the request through the route /companies/:id and extracts the ID using req.params.id. It then updates the correct company using map(), replacing only the required fields using the spread operator. After the update is completed, the backend sends a response. The frontend then calls fetchCompanies() to retrieve the latest data, and React re-renders the UI with the updated information.
 
 
 

@@ -37,17 +37,17 @@ function Dashboard() {
         await fetchCompanies();
     };
 
-    const updateStatus = (indexToUpdate) => {
-        const updatedCompanyList = companyList.map((company,index) => {
-            if(index === indexToUpdate) {
-                return({
-                    ...company,
-                    status: 'Completed'
-            });
+    const updateStatus = async (indexToUpdate) => {
+        await fetch(`http://localhost:5000/companies/${indexToUpdate}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({status: 'Completed'})
             }
-            return company;
-        });
-        setCompanyList(updatedCompanyList);
+        );
+        await fetchCompanies();
     };
 
     const fetchCompanies = async () => {
@@ -106,7 +106,7 @@ function Dashboard() {
                         status = {company.status}
 
                         onDelete = {() => deleteCompany(company.id)}  //attention we are ending function as a prop and this is callback
-                        onUpdate = {() => updateStatus(index)}
+                        onUpdate = {() => updateStatus(company.id)}
                     />
                 ))
             }

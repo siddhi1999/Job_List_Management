@@ -35,6 +35,20 @@ app.delete('/companies/:id', (req,res) => {
     res.json({message: "Company deleted succesfully"});
 });
 
+app.put(('/companies/:id'), (req, res) => {
+    const companyId = Number(req.params.id);
+    companies = companies.map((company) => {
+        if(company.id === companyId) {
+            return {
+                ...company,  //these two lines keep old data + overwrite updated fields
+                ...req.body
+            };
+        };
+        return company;
+    });
+    res.json({message: "Company updated successfully"});
+});
+
 app.listen(5000, () => {  //starting server on port 5000
     console.log("Server running on port 5000");  //Runs after server starts successfully
 });
