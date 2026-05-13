@@ -105,6 +105,17 @@ Dashboard
 
 Now we go to state management phase where we will change the handcoded cards to data stored in state that uses Hooks. we will add companyList state where it will have all the list of companies in JSCON format. We'll then remove the hardcoded <CompanyCard .../> and add the logic inside the jsx code. We will add the mapping 
 
+Lifting State: I lifted the companyList state to the Dashboard component because it is the common parent, so that all child components (CompanyCard) can access and modify the shared data through props and callbacks.
+Prop Drilling: Passing data from a parent to deeply nested child components through multiple layers of props. Good thing isin my current project, I pass props from Dashboard to CompnayCard, but I haven't yet faced deep prop drilling scenarios. In larger applications this can become difficult to maintain, which is why solutions like Context API are used.
+Context API is a way to share data across components without passing props manually at every level. For instance-
+```text
+cosnt CompanyContext = createContext();   //create Context
+<CompnayContext.Provider value={companyList}>   //Provide Data (Parent level)
+       <Dashboard />
+<CompnayContext.Provider>
+const data = useContext(CompanyContext);   //consume data (Any Child)
+```
+Now we no need to pass props manually. But this just theory and not our project implementation yet.
 ------
 
 Now we'll come to Form handling with Event System phase. We'll control the UI with state and will take input from the user. So when the state update the UI updates.
@@ -283,6 +294,7 @@ React re-renders UI
 We'll remove the const companyList... state content from Dashboard bacause now backend owns the data not frontend.
 When the Dashboard component loads, the useEffect runs once because of the empty dependency array. Inside useEffect, fetch() sends an asynchronous GET request to the backend API endpoint. The Express backend receives the request through app.get('/companies') and returns the companies array using res.json(). After the asynchronous request completes, the first .then() parses the JSON response into a JavaScript array/object using response.json(). The second .then() receives the parsed data and updates the React state using setCompanyList(data). React then re-renders the UI using the backend data.
 
+```text
 Example response object. Imagine backend sends: [ { "name": "Google" }, { "name": "Amazon" }]. The browser first receives something like:
 response = {
    status: 200,
@@ -291,7 +303,7 @@ response = {
    body: "raw stream data"
 }
 The actual JSON is still hidden inside the body. So we do: response.json(). This extracts and converts the body into JavaScript data.
-
+```
 ------
 Implement POST API for creating companies
 
@@ -378,8 +390,42 @@ UI updates automatically
 
 When the user clicks the ‘Mark as Completed’ button, the update function is triggered in the frontend. A PUT request is sent to the backend with the company ID and updated data. The backend receives the request through the route /companies/:id and extracts the ID using req.params.id. It then updates the correct company using map(), replacing only the required fields using the spread operator. After the update is completed, the backend sends a response. The frontend then calls fetchCompanies() to retrieve the latest data, and React re-renders the UI with the updated information.
 
+------
 
+Add controllers and refactor backend structure
 
+Working with controllers. Now we'll split one simple thing into layers in the backend. Rgiht now the backend looks mixed with logic and route that is hard to maintain. So we|ll make clean structure.
+```text
+backend/
+ ├── routes/
+ │     └── companyRoutes.js
+ ├── controllers/
+ │     └── companyController.js
+ ├── server.js
+
+Now:
+routes → define URL "WHERE request goes"
+controllers → logic "WHAT happens there"
+server → connection
+```
+
+After the end of the implementation we'll might get the syntax error: Cannot use import statement outside a module.
+This happens when Node.js dont understand ES Module syntax (import/export) because your backend is still running in CommonJS mode that is (const express = require("express");). But I wrote: (import express from "express";) which is ES module syntax
+
+Fixing: Go to backend/package.json
+Add this: "type": "module"
+in something like
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js"
+  }
+}
+
+We separate routes and controllers to keep the backend modular and maintainable. Routes define the API URLs, while controllers contain the actual logic. This prevents server files from becoming too large and difficult to manage.
+In my backend, server.js initializes the Express app and connects route files using app.use(). The route file defines API endpoints like GET, POST, PUT, and DELETE, and each route calls its corresponding controller function where the actual CRUD logic is implemented.
 
 
 
