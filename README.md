@@ -325,6 +325,31 @@ So there's only one mantra that frontend needs to follow 'After changing data, f
 We can do this by moving our fetch logic outside the useEffect and make it as a function, so that we an call it on the handleSubmit as well. 
 
 When the user submits the form, handleSubmit runs and sends a POST request containing the new company data to the backend. The backend stores the company data and returns a response. After the POST request completes, fetchCompanies() is called using await to retrieve the latest company list from the backend. The updated data is stored in React state using setCompanyList(), causing the UI to re-render. Additionally, fetchCompanies() also runs inside useEffect when the component initially loads.
+------
+Implement full-stack DELETE API functionality
+
+Now we'll implement delete operation. Right now delating is only happening in frontend but the data is still saved in the backed. So after refresh the deleted data is still displayed again because backend was never updated. Our goal is when user clicks Delete button, frontend should send DELETE request and backend should remove company then frontend refreshes automatically.
+
+To make that specific element delete we'll add the id on the companyList object.
+```text
+User clicks Delete
+       ↓
+Frontend sends DELETE request
+       ↓
+URL contains company id
+       ↓
+Backend receives id
+       ↓
+Backend filters company array
+       ↓
+Company removed
+       ↓
+Frontend refetches data
+       ↓
+UI updates automatically
+```
+When the user clicks the Delete button, deleteCompany() runs in the frontend. fetch() sends a DELETE request containing the company ID in the API URL. The backend receives the request through app.delete('/companies/:id'). Express extracts the route parameter using req.params.id. The backend then removes the matching company using filter() and returns a response. After deletion, the frontend refetches the updated company list and React re-renders the UI.
+
 
 
 

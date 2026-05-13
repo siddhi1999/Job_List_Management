@@ -30,9 +30,11 @@ function Dashboard() {
 
     };
 
-    const deleteCompany = (indexToDelete) => {
-        const updatedCompanyList = companyList.filter((_,index) => index !== indexToDelete);  //filter contain only the matching elements
-        setCompanyList(updatedCompanyList);
+    const deleteCompany = async (indexToDelete) => {
+        await fetch(`http://localhost:5000/companies/${indexToDelete}`, 
+            {method: 'DELETE'}
+        ); 
+        await fetchCompanies();
     };
 
     const updateStatus = (indexToUpdate) => {
@@ -103,7 +105,7 @@ function Dashboard() {
                         positionName = {company.positionName}
                         status = {company.status}
 
-                        onDelete = {() => deleteCompany(index)}  //attention we are ending function as a prop and this is callback
+                        onDelete = {() => deleteCompany(company.id)}  //attention we are ending function as a prop and this is callback
                         onUpdate = {() => updateStatus(index)}
                     />
                 ))

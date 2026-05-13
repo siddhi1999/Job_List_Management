@@ -19,9 +19,20 @@ app.get('/companies', (req, res) => {   //request from frontend, response sent b
 });
 
 app.post('/companies', (req, res) => {  //post is used for adding the data on the backend variable that is coming from frontend
-    const newCompany = req.body;  //req.body contains data sent from frontend. This only worked becasue earlier we added app.use(express.json())
+    const newCompany = { 
+        id: Date.now(),
+        ...req.body
+    };  //req.body contains data sent from frontend. This only worked becasue earlier we added app.use(express.json()). It spreads compnayName, positionName, status here
     companies.push(newCompany);   //temporary stores new compnay in backend array. Letr MOngoDB will replace this
     res.json(({message: "Company added successfully"}));
+});
+
+app.delete('/companies/:id', (req,res) => {
+    const companyId = Number(req.params.id);   //:id is a dynamic route parameter and those are in strong when it comes back to the backend to we use Number() to convert it
+    companies = companies.filter((company) =>
+        company.id !== companyId
+    );
+    res.json({message: "Company deleted succesfully"});
 });
 
 app.listen(5000, () => {  //starting server on port 5000
