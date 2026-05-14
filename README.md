@@ -427,6 +427,41 @@ in something like
 We separate routes and controllers to keep the backend modular and maintainable. Routes define the API URLs, while controllers contain the actual logic. This prevents server files from becoming too large and difficult to manage.
 In my backend, server.js initializes the Express app and connects route files using app.use(). The route file defines API endpoints like GET, POST, PUT, and DELETE, and each route calls its corresponding controller function where the actual CRUD logic is implemented.
 
+------
+
+Right now the data is getting stored temporarily in RAM and if the UI rerenders the data gets deleted. So now to store it permanently we will use the Database and that too NoSQL DB MongoDB. 
+We'll work with MongoDB Atlas (Cloud) a cloud hosted MongoDB. Its recommended for small projects and majority of the company use it. 
+Make account here- https://www.mongodb.com/cloud/atlas
+Create Cluster that is a group of server where our database will be stored and managed.
+Simple Analogy here:
+Cluster is your database machine/server- JobListServer
+Database is folder- jobListDB
+Collection is table- companies
+Document is the raw/data- { companyName, positionName, status }
+
+on the MongoDB atlas. Create cluster. Create username and password (suggestion: make pass without special characters). Then add the 
+IP address: 0.0.0.0/0  
+Description: Local Development
+
+Press Connect button at the top. choose Drivers: Node.js
+
+Now go to the backend and in the termal
+>npm install mongoose
+Then connect to the MongoDb server in the backend server.js. Connect it through mongoose.
+
+
+
+
+First we'll talk about schema that defines the structure of data in MongoDB. For instance right now we are storing-
+{companyName: "Amazon",
+  positionName: "Intern",
+  status: "Applied"}
+
+Without schema we might forget the fields. So with schema we fix the structure. Like:
+companyName → String
+positionName → String
+status → String
+
 
 
 
