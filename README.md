@@ -429,6 +429,9 @@ In my backend, server.js initializes the Express app and connects route files us
 
 ------
 
+Add MongoDB Atlas integration and backend connection setup
+Remove exposed MongoDB credentials and move to environment variables
+
 Right now the data is getting stored temporarily in RAM and if the UI rerenders the data gets deleted. So now to store it permanently we will use the Database and that too NoSQL DB MongoDB. 
 We'll work with MongoDB Atlas (Cloud) a cloud hosted MongoDB. Its recommended for small projects and majority of the company use it. 
 Make account here- https://www.mongodb.com/cloud/atlas
@@ -449,6 +452,10 @@ Now go to the backend and in the termal
 >npm install mongoose
 Then connect to the MongoDb server in the backend server.js. Connect it through mongoose.
 
+Making .env file to save the URL that contains passwords. And also install
+>npm install dotenv
+Node.js cannot read .env automatically.
+Then enable dotenv in Server meaning import it.
 
 
 

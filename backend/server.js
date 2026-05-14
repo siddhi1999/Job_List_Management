@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";   //Cross-Origin Resource Sharing is a browser security policy that blocks frontend requests to different origins unless the backend explicitly allows them.
 import companyRoutes from "./routes/companyRoutes.js";
+import dotenv from "dotenv";
+dotenv.config();  //this loads the values from your .env file into your Node.js application
 
 import mongoose from "mongoose";
 
@@ -13,7 +15,7 @@ app.use(express.json());   //this line tells express that if client send JSON da
 app.use("/companies", companyRoutes);    // This line says whenever someone visits "/companies", use all the routes inside companyRoutes
 
 //Server connection with MongoDB Atlas
-mongoose.connect("mongodb+srv://siddhi:Rishmongo@job-list-cluster.crof5t6.mongodb.net/?appName=job-list-cluster")
+mongoose.connect("process.env.MONGODB_URI")
     .then(() => {
         console.log("MongoDB connected");
     })
