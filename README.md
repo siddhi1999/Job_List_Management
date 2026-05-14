@@ -459,22 +459,38 @@ Node.js cannot read .env automatically.
 Then enable dotenv in Server meaning import it.
 Add the .env file in .gitignore 
 >backend/.env
-----------------
+
+------
 
 Add MongoDB Company schema and model structure
 
-First we'll talk about schema that defines the structure of data in MongoDB. For instance right now we are storing-
-{companyName: "Amazon",
-  positionName: "Intern",
-  status: "Applied"}
+First we'll talk about schema that defines the structure and rules of Document in MongoDB collection. For instance right now we are storing-    
+{companyName: "Amazon",  
+  positionName: "Intern",  
+  status: "Applied"}  
 
-Without schema we might forget the fields. So with schema we fix the structure. Like:
-companyName → String
-positionName → String
-status → String
+Without schema we might forget the fields. So with schema we fix the structure. Like:  
+companyName → String  
+positionName → String  
+status → String  
 
-Make folder models inside backend. models becuase it holds all database structures (tables in SQL terms)
+Make folder models inside backend. models becuase it holds all database structures (tables in SQL terms). ITs a compiled version of schema that allows us to interact with MongoDB.
 
+------
+
+Integrate MongoDB with full CRUD operations  
+
+Earlier Flow:  
+Frontend → Express → Array (RAM)  
+Now:  
+Frontend → Express → Controller → MongoDB → Response
+
+What changes is right now we had company as a variable in controllers. Now we'll import models there because Controller needs access to database structure.  
+there would be some changes in the controllers  
+get -> find  
+push -> create  
+delete -> findByIdAndDelete  
+put -> findByIdAndUpdate
 
 
 

@@ -30,15 +30,15 @@ function Dashboard() {
 
     };
 
-    const deleteCompany = async (indexToDelete) => {
-        await fetch(`http://localhost:5000/companies/${indexToDelete}`, 
+    const deleteCompany = async (idToDelete) => {
+        await fetch(`http://localhost:5000/companies/${idToDelete}`, 
             {method: 'DELETE'}
         ); 
         await fetchCompanies();
     };
 
-    const updateStatus = async (indexToUpdate) => {
-        await fetch(`http://localhost:5000/companies/${indexToUpdate}`,
+    const updateStatus = async (idToUpdate) => {
+        await fetch(`http://localhost:5000/companies/${idToUpdate}`,
             {
                 method: 'PUT',
                 headers: {
@@ -51,9 +51,13 @@ function Dashboard() {
     };
 
     const fetchCompanies = async () => {
-        const response = await fetch('http://localhost:5000/companies');   //there are two wasits because both operations are asynchronous: network request, JSON parsing
-        const data = await response.json();
-        setCompanyList(data);
+        try {
+            const response = await fetch('http://localhost:5000/companies');   //there are two wasits because both operations are asynchronous: network request, JSON parsing
+            const data = await response.json();
+            setCompanyList(data);
+        } catch (error) {
+            console.log("Error fetching companies:", error);
+        }
     };
 
     useEffect(() => {
@@ -100,13 +104,13 @@ function Dashboard() {
             {
                 companyList.map( (company, index) => (
                     <CompanyCard 
-                        key = {index}
+                        key = {company._id}
                         companyName = {company.companyName}
                         positionName = {company.positionName}
                         status = {company.status}
 
-                        onDelete = {() => deleteCompany(company.id)}  //attention we are ending function as a prop and this is callback
-                        onUpdate = {() => updateStatus(company.id)}
+                        onDelete = {() => deleteCompany(company._id)}  //attention we are ending function as a prop and this is callback
+                        onUpdate = {() => updateStatus(company._id)}
                     />
                 ))
             }

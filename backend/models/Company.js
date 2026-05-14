@@ -15,4 +15,6 @@ const companyschema = new mongoose.Schema({
     }
 });
 
-const Compnay = mongoose.model("Company", companyschema);   //This means create a collection called Company in MongoDB using this schema
+const Company = mongoose.model("Company", companyschema);   //This means create a collection called Company in MongoDB using this schema
+
+export default Company;
