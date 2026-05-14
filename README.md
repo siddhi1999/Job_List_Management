@@ -431,6 +431,7 @@ In my backend, server.js initializes the Express app and connects route files us
 
 Add MongoDB Atlas integration and backend connection setup
 Remove exposed MongoDB credentials and move to environment variables
+Security fix: remove exposed .env and protect credentials
 
 Right now the data is getting stored temporarily in RAM and if the UI rerenders the data gets deleted. So now to store it permanently we will use the Database and that too NoSQL DB MongoDB. 
 We'll work with MongoDB Atlas (Cloud) a cloud hosted MongoDB. Its recommended for small projects and majority of the company use it. 
@@ -456,8 +457,11 @@ Making .env file to save the URL that contains passwords. And also install
 >npm install dotenv
 Node.js cannot read .env automatically.
 Then enable dotenv in Server meaning import it.
+Add the .env file in .gitignore 
+>backend/.env
+----------------
 
-
+Add MongoDB Company schema and model structure
 
 First we'll talk about schema that defines the structure of data in MongoDB. For instance right now we are storing-
 {companyName: "Amazon",
@@ -468,6 +472,10 @@ Without schema we might forget the fields. So with schema we fix the structure. 
 companyName → String
 positionName → String
 status → String
+
+Make folder models inside backend. models becuase it holds all database structures (tables in SQL terms)
+
+
 
 
 
