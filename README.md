@@ -429,9 +429,9 @@ In my backend, server.js initializes the Express app and connects route files us
 
 ------
 
-Add MongoDB Atlas integration and backend connection setup
-Remove exposed MongoDB credentials and move to environment variables
-Security fix: remove exposed .env and protect credentials
+Add MongoDB Atlas integration and backend connection setup  
+Remove exposed MongoDB credentials and move to environment variables  
+Security fix: remove exposed .env and protect credentials  
 
 Right now the data is getting stored temporarily in RAM and if the UI rerenders the data gets deleted. So now to store it permanently we will use the Database and that too NoSQL DB MongoDB. 
 We'll work with MongoDB Atlas (Cloud) a cloud hosted MongoDB. Its recommended for small projects and majority of the company use it. 
@@ -449,12 +449,12 @@ Description: Local Development
 
 Press Connect button at the top. choose Drivers: Node.js
 
-Now go to the backend and in the termal
->npm install mongoose
+Now go to the backend and in the termal  
+>npm install mongoose  
 Then connect to the MongoDb server in the backend server.js. Connect it through mongoose.
 
 Making .env file to save the URL that contains passwords. And also install
->npm install dotenv
+>npm install dotenv  
 Node.js cannot read .env automatically.
 Then enable dotenv in Server meaning import it.
 Add the .env file in .gitignore 
@@ -491,6 +491,12 @@ get -> find
 push -> create  
 delete -> findByIdAndDelete  
 put -> findByIdAndUpdate
+
+------
+
+Right now our app works, but user has no idea when data is loading, with the heavy database loading UI looks hanged. So we are adding Loading state. Its an UI indicator that tells the user: data is being fetched from backend.  
+We will only add text to display for the user. But in the future this can be replaced with Spinner or Skeleton UI.
+
 
 
 

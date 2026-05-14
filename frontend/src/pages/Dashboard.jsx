@@ -6,6 +6,7 @@ function Dashboard() {
     const [companyName, setCompanyName] = useState('');
     const [positionName, setPositionName] = useState('');
     const [status, setStatus] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const [companyList, setCompanyList] = useState([]);
 
@@ -27,7 +28,7 @@ function Dashboard() {
         });
 
         await fetchCompanies();
-
+        
     };
 
     const deleteCompany = async (idToDelete) => {
@@ -52,11 +53,15 @@ function Dashboard() {
 
     const fetchCompanies = async () => {
         try {
+            setLoading(true);   //start loading
+
             const response = await fetch('http://localhost:5000/companies');   //there are two wasits because both operations are asynchronous: network request, JSON parsing
             const data = await response.json();
             setCompanyList(data);
         } catch (error) {
             console.log("Error fetching companies:", error);
+        } finally {   //finally always runs (success or failure)
+            setLoading(false);   //stop loading
         }
     };
 
@@ -102,6 +107,8 @@ function Dashboard() {
             </form>
 
             {
+                loading ? 
+                <p>Loading...</p> :
                 companyList.map( (company, index) => (
                     <CompanyCard 
                         key = {company._id}
